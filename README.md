@@ -1,4 +1,4 @@
-https://img.shields.io/github/followers/SG1515?style=social
+<img src="https://img.shields.io/github/followers/SG1515?style=social">
 
 
 1. Tech Stack    
