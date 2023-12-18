@@ -16,8 +16,7 @@ public class Solution {
 				changeC.append(Character.toLowerCase(c));
 			} 
 		}
-		String result = changeC.toString();
-		System.out.println(result);
+		System.out.println(changeC);
 			
 		
 
