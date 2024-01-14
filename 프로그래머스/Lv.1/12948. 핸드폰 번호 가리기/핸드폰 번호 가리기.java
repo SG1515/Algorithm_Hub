@@ -8,9 +8,7 @@ class Solution {
             c[i] = '*';
         }
         
-        for(int i=0; i<c.length; i++){
-            answer += c[i];
-        }
+        answer = String.valueOf(c);
         
         return answer;
     }
