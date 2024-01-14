@@ -11,7 +11,7 @@ class Solution {
         }
         
         for(int i=0; i<numbers.length; i++){
-            list.remove(Integer.valueOf(numbers[i]));
+            list.remove(numbers[i]);
         }
         int tmp =0;
         for(int i=0; i<list.size(); i++){
