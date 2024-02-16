@@ -1,43 +1,43 @@
-import java.util.Scanner;
-import java.util.Stack;
- 
+
+import java.io.*;
+import java.util.*;
 public class Main {
-	public static void main(String[] args) {
-		
-		Scanner in = new Scanner(System.in);
-		StringBuilder sb = new StringBuilder();	// 출력할 결과물 저장
-		
-		Stack<Integer> stack = new Stack<>();
-		
-		int N = in.nextInt();
-		
-		int start = 0;
-		
-		// N 번 반복
-		while(N -- > 0) {
-			
-			int value = in.nextInt();
-			
-			if(value > start) {
-				// start + 1부터 입력받은 value 까지 push를 한다.
-				for(int i = start + 1; i <= value; i++) {
-					stack.push(i);
-					sb.append('+').append('\n');	// + 를 저장한다. 
-				}
-				start = value; 	// 다음 push 할 때의 오름차순을 유지하기 위한 변수 초기화 
-			}
-			
-			// top에 있는 원소가 입력받은 값과 같이 않은 경우  
-			else if(stack.peek() != value) {
-				System.out.println("NO");
-				return;		// 또는 System.exit(0); 으로 대체해도 됨. 
-			}
-			
-			stack.pop();
-			sb.append('-').append('\n');
-			
-		}
-		
-		System.out.println(sb);
-	}
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        Stack<Integer> stack = new Stack<>();
+        boolean result = true;
+        
+        //입력 수열 배열만들기
+        int n = Integer.parseInt(st.nextToken());
+        int[] arr = new int[n];
+        for(int i=0; i<n; i++) {
+        	st = new StringTokenizer(br.readLine());
+        	arr[i] = Integer.parseInt(st.nextToken());
+        }
+        
+        int num = 1; // 오름차순 숫자
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i<arr.length; i++) {
+        	if(arr[i] >= num) { // 수열값 >= 오름차순 값 
+        		while(arr[i]>= num) {
+        			stack.push(num++); 
+        			sb.append("+\n");
+        		}
+        		stack.pop(); // 같아졌으니까 꺼내고 - 
+        		sb.append("-\n"); 
+        		
+        	} else { // 수열값 < 오름차순값 
+        		int chNum = stack.pop(); //하나씩 꺼내서 탐색
+        		if(chNum > arr[i]) { //현재 수열값보다 맨위의 숫자가 더 크면 break
+        			System.out.println("NO");
+        			result = false;
+        			break;
+        		}
+        		sb.append("-\n");
+        	}
+        }
+        if(result) System.out.println(sb);
+    }
 }
