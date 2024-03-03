@@ -2,7 +2,7 @@
 import java.io.*;
 import java.util.*;
 
-class Node {
+class Node { // 다음번호와 거리를 저장하는 클래스 
 	int next; 
 	int dist;
 	
@@ -32,7 +32,7 @@ public class Main{
 			for(Node x : list[node.next]) {
 				if(!visited[x.next]) {
 					Q.offer(new Node(x.next, x.dist+node.dist));
-					visited[x.next] = true;
+					visited[x.next] = true; //DFS처럼 재귀 X  여기서 잠궈주자
 				}
 			}
 		}
@@ -67,7 +67,7 @@ public class Main{
         	st = new StringTokenizer(br.readLine());
         	int start = Integer.parseInt(st.nextToken()); 
         	int end = Integer.parseInt(st.nextToken());
-        	visited = new boolean[n+1];
+        	visited = new boolean[n+1]; 
         	System.out.print(DFS(start, end, 0)+ " ");
         	
         }
