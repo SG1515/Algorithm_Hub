@@ -1,0 +1,32 @@
+-- MAX를 사용하면 큰값 X 
+/*
+SELECT
+    CAR_ID,
+    MAX(CASE WHEN 
+        '2022-10-16' BETWEEN DATE_FORMAT(START_DATE, '%Y-%m-%d') 
+        AND DATE_FORMAT(END_DATE, '%Y-%m-%d') 
+        THEN '대여중' ELSE '대여 가능' END ) AS 'AVAILABILITY'
+FROM 
+    CAR_RENTAL_COMPANY_RENTAL_HISTORY
+GROUP BY CAR_ID
+ORDER BY CAR_ID DESC;
+*/
+/*서브쿼리 참고자료 
+https://aljjabaegi.tistory.com/14
+*/
+SELECT 
+    CAR_ID,
+    CASE 
+     WHEN 
+        CAR_ID IN 
+    (
+        SELECT CAR_ID
+        FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+        WHERE '2022-10-16' BETWEEN DATE_FORMAT(START_DATE, '%Y-%m-%d') AND DATE_FORMAT(END_DATE, '%Y-%m-%d')
+    )THEN '대여중' 
+    ELSE '대여 가능' 
+    END  AS AVAILABILITY
+FROM 
+    CAR_RENTAL_COMPANY_RENTAL_HISTORY
+GROUP BY CAR_ID
+ORDER BY CAR_ID DESC;
