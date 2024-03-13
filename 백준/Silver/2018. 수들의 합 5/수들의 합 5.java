@@ -1,38 +1,36 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
 
+// The main method must be in a class named "Main".
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        int num = Integer.parseInt(st.nextToken());
+        int count = 0;
+        int sum = 1;
+        int lt = 1;
+        int rt = 1;
+        while (rt <= num) { 
 
-
-public class Main {
-	public static void main(String[] args) throws IOException{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		int N = Integer.valueOf(br.readLine());
-		int count = 1;
-		int start_index =1;
-		int end_index =1;
-		int sum =1;
-		while(end_index !=N) {
-			if(sum == N) { // 현재 연속 합이 N과 같은 경우
-				count++;
-				end_index++;
-				sum = sum + end_index;
-			}
-			
-			else if (sum > N) { //현재 연속 합이 N보다 큰경우
-				sum = sum - start_index;
-				start_index++;
-			}
-			else { // 현재 연속 합이 N보다 작은 경우
-				end_index++;
-				sum = sum + end_index;
-			}
-			
-			
-			
-		}
-		System.out.println(count);
-		
-	}
+            if (sum == num) { // 같으면 count++, rt 시작값으로 변경, sum 초기화
+                count++;
+                rt++;
+                sum += rt;
+                
+            } else if (sum > num) { 
+                sum -= lt; // 왼쪽값 빼주고 
+                lt++;  // 왼쪽값++
+                
+            } else if (sum < num) { 
+                rt++; // 오른쪽값 한칸 옮기고
+                sum += rt; // 오른쪽값 더해줌 
+            }
+             
+        }
+        
+        System.out.println(count);
+    }
 }
