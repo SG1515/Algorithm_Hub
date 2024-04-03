@@ -1,0 +1,38 @@
+SELECT 
+    ID,
+    EMAIL,
+    FIRST_NAME,
+    LAST_NAME
+FROM DEVELOPERS
+WHERE SKILL_CODE&(SELECT SUM(CODE)
+                 FROM SKILLCODES
+                  WHERE CATEGORY='Front End'
+                 ) 
+ORDER BY ID
+/*
+
+SELECT 
+    ID,
+    EMAIL,
+    FIRST_NAME,
+    LAST_NAME
+FROM DEVELOPERS
+WHERE SKILL_CODE&(SELECT SUM(CODE)
+                    FROM SKILLCODES
+                    WHERE CATEGORY = 'Front End'
+                    )
+ORDER BY ID
+
+
+SELECT 
+    D.ID,
+    D.EMAIL,
+    D.FIRST_NAME,
+    D.LAST_NAME
+FROM SKILLCODES S
+JOIN DEVELOPERS D
+ON SKILL_CODE&(CODE)
+WHERE S.CATEGORY = 'Front End'
+ORDER BY ID 
+
+*/
