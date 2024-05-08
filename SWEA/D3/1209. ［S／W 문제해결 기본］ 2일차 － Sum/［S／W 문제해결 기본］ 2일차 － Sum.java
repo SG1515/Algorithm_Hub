@@ -1,37 +1,48 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 class Solution {
-	public static void main(String args[]) throws Exception {
-		Scanner sc = new Scanner(System.in);
-        
-		for(int test_case = 1; test_case <= 10; test_case++) {
-			sc.nextInt();
-            int[][] arr = new int[100][100];
-
-            for(int i = 0; i < 100; i++) {
-                for(int j = 0; j < 100; j++) {     
-                    arr[i][j] = sc.nextInt();	// 배열에 입력받기
-                }
-            } 
-            // 합 구하고 비교       
-            int maxSum = -1;
-            int dSum1 = 0;
-            int dSum2 = 0;
-            for(int i = 0; i < 100; i++) {
-            	int rSum = 0;
-                int cSum = 0;
-                for(int j = 0; j < 100; j++) {
-                	rSum += arr[i][j];		// 행의 합
-                    cSum += arr[j][i];		// 열의 합
-            	}
-                maxSum = Math.max(maxSum, Math.max(rSum, cSum));
-                
-                dSum1 += arr[i][i];			// 대각선의 합
-                dSum2 += arr[i][99 -i];		// 대각선 "
-            }
-            maxSum = Math.max(maxSum, Math.max(dSum1, dSum2));
-            
-            System.out.printf("#%s %s\n", test_case, maxSum);
-		}
-	}
+	public static void main(String args[]) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int testCase = 10;
+		int N = 100;
+		for(int t=0; t<testCase; t++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			//입력받기
+			int[][] arr = new int[N][N];
+			for(int i=0; i<N; i++) {
+				st = new StringTokenizer(br.readLine());
+				for(int j=0; j<N; j++) {
+					arr[i][j] = Integer.parseInt(st.nextToken());
+				}
+			}
+			
+			
+			int max = 0;
+			for(int i=0; i<N; i++) {
+				int rNum = 0;
+				int cNum = 0;
+				for(int j=0; j<N; j++) {
+					rNum += arr[i][j];
+					cNum += arr[j][i];
+				}
+				// 행, 열 중 큰값 일단 뽑자
+				max = Math.max(max, Math.max(rNum, cNum));
+			}
+			
+			int crossLR = 0;
+			int crossRL = 0;
+			//대각선
+			for(int i=0; i<N; i++) {
+				crossLR += arr[i][i];
+				crossRL += arr[i][99-i];
+			}
+			max = Math.max(max, Math.max(crossLR, crossRL));
+			
+			System.out.print("#" +  (t+1) + " " + max + "\n");
+			
+		} // end of test case
+		
+	}// end of main
 }
