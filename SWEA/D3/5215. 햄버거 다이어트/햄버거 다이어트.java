@@ -1,50 +1,53 @@
-import java.io.*;
 import java.util.*;
-public class Solution {
+import java.io.*;
+
+class Solution {
 	static int[] taste, cal;
-	static int N, L, max;
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-        StringBuilder sb = new StringBuilder();
-
-        int T = Integer.parseInt(br.readLine()); //테스트케이스
-
-        for (int testCase = 1; testCase <= T; testCase++) {
-            st = new StringTokenizer(br.readLine(), " ");
-            N = Integer.parseInt(st.nextToken());//재료의 수
-            L = Integer.parseInt(st.nextToken());//제한 칼로리
-
-            taste = new int[N]; //맛 점수
-            cal = new int[N]; //칼로리
-            for (int i = 0; i < N; i++) {
-                st = new StringTokenizer(br.readLine(), " ");
-                taste[i] = Integer.parseInt(st.nextToken());
-                cal[i] = Integer.parseInt(st.nextToken());
-            }//end of input
-
-            max = 0;
-            getSubSet(0, 0, 0);
-
-            sb.append("#").append(testCase).append(" ").append(max).append("\n");
-        }
-        System.out.print(sb);
-    }
-
-    private static void getSubSet(int cnt, int calSum, int tasteSum) { //재료 부분집합 구하기
-        if (calSum > L) return; //최대 칼로리 초과하면 돌아가기
-        if (cnt == N) {
-        	// 마지막 재료까지 확인했으면(조합으로 포함했든 안했든) DFS에서 빠져나온다
+	static int maxCal;
+	static int base;
+	static int max;
+	public static void main(String args[]) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int t = Integer.parseInt(br.readLine());
+		
+		for(int testCase=0; testCase<t; testCase++) { 
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			base = Integer.parseInt(st.nextToken()); // 재료의 개수
+			maxCal = Integer.parseInt(st.nextToken()); // max calorie
+			
+			taste = new int[base];
+			cal = new int[base];
+			
+			for(int i=0; i<base; i++) {
+				st = new StringTokenizer(br.readLine());
+				taste[i] = Integer.parseInt(st.nextToken());
+				cal[i] = Integer.parseInt(st.nextToken());
+			}
+			max =0;
+			food(0, 0, 0); //인덱스, 칼로리, 맛점수
+			
+			System.out.print("#" + (testCase+1) + " " + max + "\n");
+		}// end of testcase
+		
+	}// end of main
+	
+	private static void food(int idx, int sumT, int sumC) {
+		
+		if (sumC > maxCal) { //제한칼로리보다 더한 칼로리 값이 더 크면
+			return;
+		} 
+		if (idx == base) {
+			// 마지막 재료까지 확인했으면(조합으로 포함했든 안했든) DFS에서 빠져나온다
             // 그 전에 지금까지 조합의 칼로리 합이 최대를 넘지 않았으면, max값을 갱신한다.
-        	if(calSum <= L) max = Math.max(max, tasteSum);
-            return; 
+			if(sumC <= maxCal) { //마지막 taste 값을 더해주기
+				max = Math.max(max, sumT);
+			}
+			return;
 		}
-        
-        //해당 재료 선택했을 때
-        getSubSet(cnt + 1, calSum + cal[cnt], tasteSum + taste[cnt]);
-
-        //해당 재료 선택하지 않았을 때
-        getSubSet(cnt + 1, calSum, tasteSum);
-    }
+		
+		//선택 
+		food(idx+1, sumT+taste[idx], sumC+cal[idx]);
+		food(idx+1, sumT, sumC);
+	}
 }
