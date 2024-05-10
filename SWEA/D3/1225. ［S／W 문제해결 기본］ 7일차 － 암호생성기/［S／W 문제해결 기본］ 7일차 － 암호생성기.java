@@ -16,11 +16,9 @@ class Solution {
 			}
 			int value = 1;
 			while(value!=0) {
-				// q에서 하나 뽑아서 순차적으로 i를 빼준다.
 				for(int i=1; i<6; i++) {
 					value = q.poll() - i;
 					
-					// value값이 0보다 작아지면 0으로 만들고 q에 value 넣어준다
 					if(value <= 0) {
 						value = 0;
 						} 
