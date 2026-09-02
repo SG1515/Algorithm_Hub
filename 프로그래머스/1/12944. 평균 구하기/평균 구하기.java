@@ -3,11 +3,9 @@ class Solution {
         double answer = 0;
         
         for(int i=0; i<arr.length; i++){
-            answer += arr[i];
+            answer = answer + arr[i];
         }
-        
-        answer = answer / arr.length;
-        
+        answer = (double) answer / arr.length;
         return answer;
     }
 }
