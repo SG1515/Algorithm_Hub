@@ -24,8 +24,9 @@ public class Main {
 		char[] strSplit = str.toCharArray();
 		
 		for(char c : strSplit) {
-			if( c >= 65 && c <= 90) sb.append((c + "").toLowerCase());
-			if( c >= 97 && c <= 122) sb.append((c + "").toUpperCase());
+			int castC = (int) c;
+			if( castC >= 65 && castC <= 90) sb.append((c + "").toLowerCase());
+			if( castC >= 97 && castC <= 122) sb.append((c + "").toUpperCase());
 		}
 		
 		
