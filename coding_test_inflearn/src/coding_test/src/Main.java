@@ -1,35 +1,41 @@
-import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
+import java.util.Scanner;
+
 
 public class Main {
    
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) {
 		Main T = new Main();
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		Scanner sc = new Scanner(System.in);
+		String str = sc.next();
+		System.out.println(T.solution(str));
 		
-		int testCase = Integer.parseInt(br.readLine());
-		String[] stringArr = new String[testCase];
-
-		for(int i=0; i < testCase; i++) {
-			stringArr[i] = br.readLine();
-		}
-		
-		for(String x : T.solution(testCase, stringArr)) {
-			System.out.println(x);
-		}
+//		char a = "A".charAt(0);
+//		char b = "z".charAt(0);
+//		System.out.println((int)a + " " + (int)b);
 	}
 	
-	public ArrayList<String> solution(int testCase, String[] arr) {
-		ArrayList<String> result = new ArrayList<>();
-		for(String s : arr) {
-			StringBuilder sb = new StringBuilder();
-			String tmp = sb.append(s).reverse().toString();
-			result.add(tmp);
+	
+	public String solution(String str) {
+		String result = "";
+		
+		char[] strArr = str.toCharArray();
+		int lt = 0; 
+		int rt = str.length()-1;
+
+		while(lt<rt) {
+			if(!Character.isAlphabetic(strArr[lt])) lt++;
+			else if(!Character.isAlphabetic(strArr[rt])) rt--;
+			else {
+				char tmp = strArr[lt];
+				strArr[lt] = strArr[rt];
+				strArr[rt] = tmp;
+				lt++;
+				rt--;
+			}
 		}
+		result = String.valueOf(strArr);
 		
 		return result;
-		
 	}
+	
 }
