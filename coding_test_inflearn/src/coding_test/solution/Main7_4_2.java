@@ -10,26 +10,25 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		int testCase = Integer.parseInt(br.readLine());
-		String[] stringArr = new String[testCase];
+		ArrayList<String> arr = new ArrayList<>();
 
 		for(int i=0; i < testCase; i++) {
-			stringArr[i] = br.readLine();
+			arr.add(br.readLine());
 		}
 		
-		for(String x : T.solution(testCase, stringArr)) {
-			System.out.println(x);
-		}
+		T.solution(arr);
 	}
 	
-	public ArrayList<String> solution(int testCase, String[] arr) {
-		ArrayList<String> result = new ArrayList<>();
+	public void solution(ArrayList<String> arr) {
+		ArrayList<String> result = new ArrayList<String>();
+		
 		for(String s : arr) {
 			StringBuilder sb = new StringBuilder();
-			String tmp = sb.append(s).reverse().toString();
-			result.add(tmp);
+			for (int i=s.length()-1; i>=0; i--) {
+				sb.append(s.charAt(i));
+			}
+			System.out.println(sb.toString());
 		}
-		
-		return result;
 		
 	}
 }
