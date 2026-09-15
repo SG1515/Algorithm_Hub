@@ -1,37 +1,37 @@
-import java.util.Scanner;
-
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main {
    
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException{
 		Main T = new Main();
-		Scanner sc = new Scanner(System.in);
-		String str = sc.nextLine();
-		System.out.println(T.solution(str));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
+		String str = br.readLine();
+		System.out.println(T.solution(str));
 	}
 	
-	
-	public String solution (String str) {
+	public String solution(String str) {
 		String result = "YES";
-		
-		if (str.isEmpty()) {
-			return "문자열을 입력하세요.";
-		}
+		StringBuilder sb = new StringBuilder();
 		
 		str = str.toUpperCase();
-		String[] strArr = str.split("");
-		int lt = 0;
-		int rt = str.length()-1;
-		
-		while (lt<rt) {
-			if(strArr[lt].equals(strArr[rt])) result = "YES";
-			else {
-				return result = "NO";
+		char[] strArr = str.toCharArray();
+		for (char x : strArr) {
+			if(x >= 65 && x <= 122) {
+				sb.append(x);
 			}
-			lt++;
-			rt--;
 		}
+		
+		String s = sb.toString();
+		String reverseS = sb.reverse().toString();
+//		System.out.println("s : " + s);
+//		System.out.println("r : " + reverseS);
+		if(!s.equals(reverseS)) {
+			return result = "NO";
+		}
+		
 		
 		return result;
 	}
